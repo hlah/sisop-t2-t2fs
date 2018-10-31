@@ -27,14 +27,14 @@ all: build_lib
 	echo $(OBJS)
 
 $(BIN_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) -c -o $@  $< $(C_FLAGS) -I$(INC_DIR)
+	$(CC) -c $< $(C_FLAGS) -I$(INC_DIR) -o $@ 
 
 build_lib: $(OBJS)
 	mkdir -p $(LIB_DIR)
 	ar crs $(LIB_DIR)/libt2fs.a $(BIN_DIR)/*.o $(LIB_DIR)/apidisk.o
 
 clean:
-	rm -rf $(LIB_DIR)/*.a $(SRC_DIR)/*~ $(INC_DIR)/*~ *~ .*~ *.sw?
+	rm -rf $(BIN_DIR)/* $(LIB_DIR)/*.a $(SRC_DIR)/*~ $(INC_DIR)/*~ *~ .*~ *.sw?
 	make -C teste/ clean
 
 .PHONY: clean build-lib all

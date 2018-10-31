@@ -4,7 +4,8 @@
 
 CC=gcc
 LIB_DIR=../lib
-CFLAGS=-L$(LIB_DIR)/ -lt2fs -Wall -m32
+INC_DIR=../include
+CFLAGS=-I$(INC_DIR) -L$(LIB_DIR)/ -lt2fs -Wall -m32
 
 TESTS=$(patsubst %.c, %, $(wildcard *.c))
 
@@ -16,10 +17,11 @@ all: $TESTS
 #	$(CC) -o teste teste.c -L$(LIB_DIR) $(CFLAGS)
 
 # build a test
-%: %.cpp $(LIB_DIR)/libt2fs.a
-	$(CC) $(CFLAGS) $< -o $(patsubst %.cpp,%,$<)
+%: %.c $(LIB_DIR)/libt2fs.a
+	$(CC) $< -o $(patsubst %.c,%,$<) $(CFLAGS)
 
 .PHONY: all clean 
 	
 clean:
 	rm -rf *.o *~ $(TESTS)
+	cp ../t2fs_disk.dat ./
