@@ -10,7 +10,7 @@ CFLAGS=-I$(INC_DIR) -L$(LIB_DIR)/ -lt2fs -Wall -m32
 TESTS=$(patsubst %.c, %, $(wildcard *.c))
 
 # build all tests
-all: $TESTS
+all: $(TESTS)
 
 # Exemplo:
 # testa_yield: teste.c $(LIB_DIR)/.a
