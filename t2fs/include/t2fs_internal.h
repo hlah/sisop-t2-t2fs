@@ -24,20 +24,21 @@ typedef *NODE_HANDLE P_NODE_HANDLE;
 */
 
 /////// funções internas da biblioteca ///////////
-// inicializa t2fs
+// inicializa t2fs, retorna 0 se sucedidio, outro valor se erro
 int t2fs_init();
-// lê superbloco
+// lê superbloco, retorna 0 se sucedidio, outro valor se erro
 int t2fs_read_superblock(struct t2fs_superbloco* superbloco_p);
 
 
 /////// variaveis internas da t2fs ////////
 // indica se t2fs foi inicializado
-// extern int t2fs_initialized = 0;
+extern int t2fs_initialized;
 // buffer superbloco
-// extern struct t2fs_superbloco superbloco;
-// caminho do CP
-// extern char *CP;
-// ponteiro para buffer contendo as entradas do CP atual
+extern struct t2fs_superbloco t2fs_superbloco_info;
+// caminho do diretório atual
+extern char t2fs_cwd_path[256];
+// cluster do diretório atual
+extern unsigned int t2fs_cwd_cluster_num;
 // extern unsigned char current_path[SECTOR_SIZE];
 // id do proximo FILE2
 // extern FILE2 next_FILE2 = 0;
