@@ -5,13 +5,9 @@
 #include <stdlib.h>
 
 ///// deifiniçoes
+#define MAXIMUM_OPEN_DIRS 200
+#define MAXIMUM_OPEN_FILES 200
 
-typedef struct t2fs_record DESCRIPTOR;
-
-typedef struct {
-    DESCRIPTOR   *buffer;   /* Ponteiro para buffer contendo o descritor do arquivo */
-    int          current_pointer;   /* Posição corrente do arquivo */
-} HANDLE;
 
 
 /*
@@ -27,12 +23,14 @@ typedef *NODE_HANDLE P_NODE_HANDLE;
 // ESTRUTURAS
 
 
-/////// funções internas da biblioteca ///////////
+
+/////// FUNÇÔES INTERNAS ///////////
 // inicializa t2fs, retorna 0 se sucedidio, outro valor se erro
 int t2fs_init();
 // lê superbloco, retorna 0 se sucedidio, outro valor se erro
 int t2fs_read_superblock(struct t2fs_superbloco* superbloco_p);
-
+// lê cluster, retorna ponteiro para buffer (deve ser desalocado por quem chamou), NULL se erro
+void* t2fs_read_cluster(unsigned int cluster);
 
 /////// VARIAVEIS INTERNAS ////////
 
