@@ -14,6 +14,9 @@ int t2fs_init(){
 		t2fs_cwd_cluster_num = t2fs_superbloco_info.RootDirCluster;
 		strcpy(t2fs_cwd_path, "/");
 
+		// calcula numero máximo de arquivos por diretorio
+		t2fs_maximum_files_in_directory = t2fs_superbloco_info.SectorsPerCluster * 4;
+
         // carrega o diretorio raiz
         // TODO
 

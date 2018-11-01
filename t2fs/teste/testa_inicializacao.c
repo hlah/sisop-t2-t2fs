@@ -20,8 +20,13 @@ int main() {
 
 	printf("\n");
 
+	printf("Numero maximo de arquivos por diretorio: %d\n", t2fs_maximum_files_in_directory);
+
+	printf("\n");
+
 	printf("Setor do diretorio atual: %d\n", t2fs_cwd_cluster_num);
 	printf("Caminho do diretorio atual: '%s'\n", t2fs_cwd_path);
+
 
 
 

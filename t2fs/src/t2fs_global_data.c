@@ -8,3 +8,6 @@ struct t2fs_superbloco t2fs_superbloco_info;
 char t2fs_cwd_path[256];
 // cluster do diretório atual
 unsigned int t2fs_cwd_cluster_num;
+
+// numero máximo de arquivos em diretório
+unsigned int t2fs_maximum_files_in_directory;
