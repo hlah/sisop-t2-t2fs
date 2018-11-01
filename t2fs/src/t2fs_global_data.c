@@ -11,3 +11,6 @@ unsigned int t2fs_cwd_cluster_num;
 
 // numero máximo de arquivos em diretório
 unsigned int t2fs_maximum_files_in_directory;
+
+// array de diretórios abertos (posiçoes não usadas: directory_cluster_data = NULL)
+t2fs_directory_data t2fs_open_directories[MAXIMUM_OPEN_DIRS];

@@ -2,6 +2,7 @@
 
 #include <string.h>
 
+
 int t2fs_init(){
     if ( !t2fs_initialized ){
 
@@ -16,6 +17,9 @@ int t2fs_init(){
 
 		// calcula numero máximo de arquivos por diretorio
 		t2fs_maximum_files_in_directory = t2fs_superbloco_info.SectorsPerCluster * 4;
+
+		// inicializa array de diretórios abertos (zera tudo)
+		memset((void*)t2fs_open_directories, 0, sizeof(t2fs_open_directories));
 
         // carrega o diretorio raiz
         // TODO
