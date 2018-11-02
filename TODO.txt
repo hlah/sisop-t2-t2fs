@@ -8,7 +8,6 @@ Métodos da interface a implementar:
 - ln2
 - mkdir2
 - open2
-- opendir2
 - read2
 - rmdir2
 - seek2
@@ -18,4 +17,5 @@ Métodos da interface a implementar:
 Métodos da interface já implementados:
 - readdir2
 - closedir2
+- opendir2
 
