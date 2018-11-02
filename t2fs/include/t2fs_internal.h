@@ -8,6 +8,8 @@
 #define MAXIMUM_OPEN_DIRS 200
 #define MAXIMUM_OPEN_FILES 200
 
+#define MAXIMUM_PATH_LEN 256
+
 /*
 typedef struct {
     HANDLE *ant;
@@ -46,7 +48,7 @@ extern int t2fs_initialized;
 // buffer superbloco
 extern struct t2fs_superbloco t2fs_superbloco_info;
 // caminho do diretório atual
-extern char t2fs_cwd_path[256];
+extern char t2fs_cwd_path[MAXIMUM_PATH_LEN+1];
 // cluster do diretório atual
 extern unsigned int t2fs_cwd_cluster_num;
 

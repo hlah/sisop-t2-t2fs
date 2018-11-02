@@ -1,9 +1,7 @@
 Métodos da interface a implementar:
-- chdir2
 - close2
 - create2
 - delete2
-- getcwd2
 - identify2
 - ln2
 - mkdir2
@@ -18,4 +16,6 @@ Métodos da interface já implementados:
 - readdir2
 - closedir2
 - opendir2
+- getcwd2
+- chdir2
 
