@@ -1,7 +1,11 @@
 #include "t2fs_internal.h"
 
+#include <assert.h>
+
 // abre diretório a partir do seu cluster, retorna handler ou -1 em erro
-int t2fs_opendir_from_cluster(unsigned int cluster) {
+int t2fs_opendir_from_cluster(int cluster) {
+	assert( t2fs_initialized == 1 );
+
 	int dir_handler = 0;
 
 	// acha posição livre no array de diretórios abertos

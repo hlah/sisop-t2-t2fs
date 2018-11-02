@@ -4,7 +4,7 @@
 #include <assert.h>
 
 // lê cluster, retorna ponteiro para buffer (deve ser desalocado por quem chamou), NULL se erro
-void* t2fs_read_cluster(unsigned int cluster) {
+void* t2fs_read_cluster(int cluster) {
 	int i;
 	unsigned int cluster_first_sector;
 	assert( t2fs_initialized == 1 );

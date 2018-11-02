@@ -33,9 +33,11 @@ int t2fs_init();
 // lê superbloco, retorna 0 se sucedidio, outro valor se erro
 int t2fs_read_superblock(struct t2fs_superbloco* superbloco_p);
 // lê cluster, retorna ponteiro para buffer (deve ser desalocado por quem chamou), NULL se erro
-void* t2fs_read_cluster(unsigned int cluster);
+void* t2fs_read_cluster( int cluster);
 // abre diretório a partir do seu cluster, retorna handler ou -1 em erro
-int t2fs_opendir_from_cluster(unsigned int cluster);
+int t2fs_opendir_from_cluster(int cluster);
+// retrona registro de diretório em 'path' a partir do diretório em cluster como referencia
+struct t2fs_record t2fs_find_file(int cluster, const char* path);
 
 /////// VARIAVEIS INTERNAS ////////
 
