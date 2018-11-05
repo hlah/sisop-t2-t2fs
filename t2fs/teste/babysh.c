@@ -65,7 +65,7 @@ void pwd() {
 }
 
 void cd( char * path ) {
-	if( chdir2("dir1") != 0 ) {
+	if( chdir2(path) != 0 ) {
 		printf("invalida path '%s'\n", path);
 	}
 }
@@ -77,6 +77,12 @@ void help() {
 	printf("ll [caminho] \t lista o coteudo do diretorio 'caminho'.\n");
 	printf("help \t\t imprime ajuda.\n");
 	printf("exit \t\t sai do babysh.\n");
+}
+
+void mkdir(char * pathname) {
+	if( mkdir2(pathname) != 0) {
+		printf("Could not create directory '%s'\n", pathname);
+	}
 }
 
 int execute_command(char * command) {
@@ -109,6 +115,12 @@ int execute_command(char * command) {
 		}
 		else if( strcmp( argv[0], "pwd" ) == 0 ) {
 			help();
+		} else if( strcmp( argv[0], "mkdir" ) == 0 ) {
+			if( args > 1 ) {
+				mkdir( argv[1] );
+			} else {
+				printf("mkdir needs one argument.\n");
+			}
 		}
 	}
 
