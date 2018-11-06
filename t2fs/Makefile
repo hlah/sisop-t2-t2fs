@@ -16,7 +16,7 @@ INC_DIR=./include
 BIN_DIR=./bin
 SRC_DIR=./src
 ifdef DEBUG
-C_FLAGS=-Wall -m32 -DDEBUG
+C_FLAGS=-Wall -m32 -DDEBUG -g
 else
 C_FLAGS=-Wall -m32
 endif

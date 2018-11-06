@@ -9,25 +9,29 @@ int mkdir2 (char *pathname) {
 	char* path = NULL;
 	char* name = NULL;
 
+	// copia pathname
+	char* pathname_copy = malloc( strlen(pathname)+1 );
+	strcpy( pathname_copy, pathname );
+
 	// separa caminho do nome do novo diretório
 	int i = 0;
-	while( pathname[i] != '\0' ) {
+	while( pathname_copy[i] != '\0' ) {
 		i++;
 	}
 	// pula ultimo '/'
-	if( pathname[i-1] == '/' ) {
-		pathname[i-1] = '\0';
+	if( pathname_copy[i-1] == '/' ) {
+		pathname_copy[i-1] = '\0';
 		i-=2;
 	}
-	while( pathname[i] != '/' && i >= 0 ) {
+	while( pathname_copy[i] != '/' && i >= 0 ) {
 		i--;
 	}
 	if( i >= 0 ) {
-		pathname[i] = '\0';
-		path = pathname;
-		name = pathname + i + 1;
+		pathname_copy[i] = '\0';
+		path = pathname_copy;
+		name = pathname_copy + i + 1;
 	} else {
-		name = pathname;
+		name = pathname_copy;
 	}
 
 	// obtem informações do caminho

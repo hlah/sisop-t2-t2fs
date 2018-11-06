@@ -5,7 +5,11 @@
 CC=gcc
 LIB_DIR=../lib
 INC_DIR=../include
+ifdef DEBUG
+CFLAGS=-I$(INC_DIR) -L$(LIB_DIR)/ -lt2fs -Wall -m32 -DDEBUG -g
+else
 CFLAGS=-I$(INC_DIR) -L$(LIB_DIR)/ -lt2fs -Wall -m32
+endif
 
 TESTS=$(patsubst %.c, %, $(wildcard *.c))
 

@@ -2,5 +2,8 @@
 
 int rmdir2 (char *pathname) {
 	t2fs_init();
-	return -1;
+
+
+
+	return 0;
 }
