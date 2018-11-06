@@ -53,15 +53,9 @@ int mkdir2 (char *pathname) {
 		return -1;
 	}	
 
-	// procura por espaço vazio
-	int cluster_registry = 0;
-	while( cluster_registry < t2fs_maximum_files_in_directory &&
-			((struct t2fs_record*)cluster_data+cluster_registry)->TypeVal != TYPEVAL_INVALIDO ) {
-		//printf("%d\n", cluster_registry);
-		cluster_registry++;
-	}
+	int cluster_registry = t2fs_get_dir_empty_pos( cluster_data );
 	// diretório cheio, retorna erro
-	if( cluster_registry == t2fs_maximum_files_in_directory ) {
+	if( cluster_registry < 0 ) {
 		free(cluster_data);
 		return -1;
 	}

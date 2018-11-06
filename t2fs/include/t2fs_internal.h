@@ -44,6 +44,8 @@ int t2fs_opendir_from_cluster(int cluster);
 struct t2fs_record t2fs_find_file(int cluster, const char* path);
 // retorna posição de cluster vazio ou -1 se não houver
 int t2fs_get_free_cluster();
+// retorna posição libre em diretório, ou -1 se diretório cheio; entrada: buffer de cluster do diretório
+int t2fs_get_dir_empty_pos( void* cluster_data );
 
 /////// VARIAVEIS INTERNAS ////////
 
