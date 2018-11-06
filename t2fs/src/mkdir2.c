@@ -13,26 +13,7 @@ int mkdir2 (char *pathname) {
 	char* pathname_copy = malloc( strlen(pathname)+1 );
 	strcpy( pathname_copy, pathname );
 
-	// separa caminho do nome do novo diretório
-	int i = 0;
-	while( pathname_copy[i] != '\0' ) {
-		i++;
-	}
-	// pula ultimo '/'
-	if( pathname_copy[i-1] == '/' ) {
-		pathname_copy[i-1] = '\0';
-		i-=2;
-	}
-	while( pathname_copy[i] != '/' && i >= 0 ) {
-		i--;
-	}
-	if( i >= 0 ) {
-		pathname_copy[i] = '\0';
-		path = pathname_copy;
-		name = pathname_copy + i + 1;
-	} else {
-		name = pathname_copy;
-	}
+	t2fs_split_path( pathname_copy, &path, &name );
 
 	// obtem informações do caminho
 	struct t2fs_record registro; 

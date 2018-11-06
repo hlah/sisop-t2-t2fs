@@ -48,6 +48,8 @@ int t2fs_get_free_cluster();
 int t2fs_get_dir_empty_pos( void* cluster_data );
 // checa se diretório está vazio (apenas '.' e '..') (1 = vazio, 0 = não vazio)
 int t2fs_is_dir_empty( void* cluster_data );
+// separa nome de arquivo do resto do caminho (pathname não é preservado);
+void t2fs_split_path( char* pathname, char** path, char** name );
 
 /////// VARIAVEIS INTERNAS ////////
 
