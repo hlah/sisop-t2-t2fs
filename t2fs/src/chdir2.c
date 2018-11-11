@@ -17,7 +17,7 @@ int chdir2 (char *pathname) {
 	t2fs_cwd_cluster_num = registro.firstCluster;
 
 	// atualiza path
-	t2fs_get_abs_path( registro.firstCluster, t2fs_cwd_path );
+	t2fs_dir_abs_path( registro.firstCluster, t2fs_cwd_path );
 
 	/*
 	int current_cluster = t2fs_cwd_cluster_num;

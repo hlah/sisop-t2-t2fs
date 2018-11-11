@@ -3,6 +3,8 @@
 #include <string.h>
 #include <assert.h>
 
+#include <stdio.h>
+
 void add_path_node_name( int cluster, int parent_cluster, char * path_name ) {
 	
 	// obtém cluster do pai, se não informado
@@ -45,7 +47,7 @@ void add_path_node_name( int cluster, int parent_cluster, char * path_name ) {
 }
 
 // obtem caminho absoluto de arquivo a partir do seu cluster
-void t2fs_get_abs_path( int cluster, char * path_name ) {
+void t2fs_dir_abs_path( int cluster, char * path_name ) {
 	strcpy( t2fs_cwd_path, "/" );
 	if( cluster != t2fs_superbloco_info.RootDirCluster ) {
 		add_path_node_name( cluster,  -1, path_name );
