@@ -52,6 +52,8 @@ int t2fs_get_dir_empty_pos( void* cluster_data );
 int t2fs_is_dir_empty( void* cluster_data );
 // separa nome de arquivo do resto do caminho (pathname não é preservado);
 void t2fs_split_path( char* pathname, char** path, char** name );
+// obtem caminho absoluto de arquivo a partir do seu cluster
+void t2fs_get_abs_path( int cluster, char * path_name ); 
 
 /////// VARIAVEIS INTERNAS ////////
 
