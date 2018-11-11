@@ -66,7 +66,7 @@ void pwd() {
 
 void cd( char * path ) {
 	if( chdir2(path) != 0 ) {
-		printf("invalida path '%s'\n", path);
+		printf("invalid path '%s'\n", path);
 	}
 }
 
@@ -75,6 +75,8 @@ void help() {
 	printf("pwd \t\t mostra diretorio de trabalho atual.\n");
 	printf("cd [caminho] \t muda diretorio de trabalho para 'caminho'.\n");
 	printf("ll [caminho] \t lista o coteudo do diretorio 'caminho'.\n");
+	printf("mkdir caminho \t cria diretorio no caminho dado.\n");
+	printf("rmdir caminho \t remove diretorio no caminho dado (deve ser vazio).\n");
 	printf("help \t\t imprime ajuda.\n");
 	printf("exit \t\t sai do babysh.\n");
 }
@@ -82,6 +84,12 @@ void help() {
 void mkdir(char * pathname) {
 	if( mkdir2(pathname) != 0) {
 		printf("Could not create directory '%s'\n", pathname);
+	}
+}
+
+void rmdir(char * pathname) {
+	if( rmdir2(pathname) != 0) {
+		printf("Could not delete directory '%s'\n", pathname);
 	}
 }
 
@@ -121,7 +129,16 @@ int execute_command(char * command) {
 			} else {
 				printf("mkdir needs one argument.\n");
 			}
+		} else if( strcmp( argv[0], "rmdir" ) == 0 ) {
+			if( args > 1 ) {
+				rmdir( argv[1] );
+			} else {
+				printf("rmdir needs one argument.\n");
+			}
+		} else {
+			printf("unknown command '%s'\n", argv[0]);
 		}
+
 	}
 
 	return 1;

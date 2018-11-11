@@ -6,7 +6,6 @@ Métodos da interface a implementar:
 - ln2
 - open2
 - read2
-- rmdir2
 - seek2
 - truncate2
 - write2
@@ -18,4 +17,5 @@ Métodos da interface já implementados:
 - getcwd2
 - chdir2
 - mkdir2
+- rmdir2
 
