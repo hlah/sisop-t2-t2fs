@@ -23,24 +23,28 @@ int mkdir2 (char *pathname) {
 		registro = t2fs_find_file(t2fs_cwd_cluster_num, ".");
 	}
 	if( registro.TypeVal != TYPEVAL_DIRETORIO ) {
+		free(pathname_copy);
 		return -1;
 	}
 
 	// checa se já existe	
 	struct t2fs_record tmp_registro = t2fs_find_file( registro.firstCluster, name );
 	if( tmp_registro.TypeVal != TYPEVAL_INVALIDO ) {
+		free(pathname_copy);
 		return -1;
 	}
 
 	// lê cluster do diretorio
 	void* cluster_data = t2fs_read_cluster( registro.firstCluster );
 	if( cluster_data == NULL ) {
+		free(pathname_copy);
 		return -1;
 	}	
 
 	int cluster_registry = t2fs_get_dir_empty_pos( cluster_data );
 	// diretório cheio, retorna erro
 	if( cluster_registry < 0 ) {
+		free(pathname_copy);
 		free(cluster_data);
 		return -1;
 	}
@@ -48,6 +52,7 @@ int mkdir2 (char *pathname) {
 	// obtém novo cluster
 	int new_cluster = t2fs_get_free_cluster();
 	if( new_cluster < 0 ) {
+		free(pathname_copy);
 		free(cluster_data);
 		return -1;
 	}
@@ -63,6 +68,7 @@ int mkdir2 (char *pathname) {
 
 	// reescreve todo o diretorio
 	if( t2fs_write_cluster( registro.firstCluster, cluster_data ) != 0 ) {
+		free(pathname_copy);
 		free(cluster_data);
 		return -1;
 	}
@@ -83,10 +89,12 @@ int mkdir2 (char *pathname) {
 
 	// escreve novo diretorio
 	if( t2fs_write_cluster( new_cluster, cluster_data ) != 0 ) {
+		free(pathname_copy);
 		free(cluster_data);
 		return -1;
 	}
 
+	free(pathname_copy);
 	free(cluster_data);
 	return 0;
 }
