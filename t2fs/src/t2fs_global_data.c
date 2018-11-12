@@ -14,3 +14,6 @@ unsigned int t2fs_maximum_files_in_directory;
 
 // array de diretórios abertos (posiçoes não usadas: directory_cluster_data = NULL)
 t2fs_directory_data t2fs_open_directories[MAXIMUM_OPEN_DIRS];
+
+// array de arquivos abertos (posiçoes não usadas: record = NULL)
+t2fs_file_data t2fs_open_files[MAXIMUM_OPEN_FILES];
