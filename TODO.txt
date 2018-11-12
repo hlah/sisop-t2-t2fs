@@ -1,13 +1,7 @@
 Métodos da interface a implementar:
-- close2
-- create2
 - delete2
-- identify2
 - ln2
-- open2
 - read2
-- seek2
-- truncate2
 - write2
 
 Métodos da interface já implementados:
@@ -18,4 +12,9 @@ Métodos da interface já implementados:
 - chdir2
 - mkdir2
 - rmdir2
-
+- close2 (NÃO TESTADO)
+- create2 (NÃO TESTADO)
+- identify2 (NÃO TESTADO)
+- open2 (NÃO TESTADO)
+- seek2 (NÃO TESTADO)
+- truncate2 (NÃO TESTADO)
