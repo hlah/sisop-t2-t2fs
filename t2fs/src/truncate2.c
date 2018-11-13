@@ -2,11 +2,11 @@
 #include "apidisk.h"
 
 int truncate2 (FILE2 handle) {
-	t2fs_init();
+    t2fs_init();
 
     unsigned int sector_buffer [SECTOR_SIZE / 4];
     unsigned int current_position_cluster;
-    unsigned int cluster_offset;
+    // unsigned int cluster_offset;
     unsigned int next_cluster;
     unsigned int cluster_size = SECTOR_SIZE * t2fs_superbloco_info.SectorsPerCluster;
     unsigned int sector;
@@ -33,20 +33,22 @@ int truncate2 (FILE2 handle) {
 
     // cluster e offset da posição corrente (relativo ao arquivo)
 	current_position_cluster = t2fs_open_files[handle].current_pointer / cluster_size;
-	cluster_offset = t2fs_open_files[handle].current_pointer % cluster_size;
+	// cluster_offset = t2fs_open_files[handle].current_pointer % cluster_size;
 
     // setor da FAT e offset do primeiro cluster
     sector = t2fs_open_files[handle].file_record->firstCluster / (SECTOR_SIZE / 4);
     sector_offset = t2fs_open_files[handle].file_record->firstCluster % (SECTOR_SIZE / 4);
 
-    // encontra cluster onde está a posição corrente do arquivo
-    for (i = 0; i < current_position_cluster; i++) {
+    // encontra primeiro cluster após o cluster onde está a posição corrente do arquivo
+    for (i = 0; i <= current_position_cluster; i++) {
         if (read_sector(sector + t2fs_superbloco_info.pFATSectorStart, (unsigned char*) sector_buffer) != 0)
             return -1;
         next_cluster = sector_buffer[sector_offset];
         sector = next_cluster / (SECTOR_SIZE / 4);
         sector_offset = next_cluster % (SECTOR_SIZE / 4);
     }
+
+    /*
 
     // zera tudo a partir do offset
     cluster_buffer = (unsigned char*) t2fs_read_cluster((int) next_cluster);
@@ -62,6 +64,8 @@ int truncate2 (FILE2 handle) {
     next_cluster = sector_buffer[sector_offset];
     sector = next_cluster / (SECTOR_SIZE / 4);
     sector_offset = next_cluster % (SECTOR_SIZE / 4);
+
+    */
 
     if (next_cluster != 0xFFFFFFFF) {
         // desaloca clusters seguintes
