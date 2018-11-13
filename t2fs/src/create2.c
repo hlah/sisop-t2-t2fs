@@ -14,7 +14,7 @@ int create2(char* filename) {
     unsigned int sector_offset;
 
 	// nome inválido
-	if (strlen(filename) > 51)
+	if (strlen(filename) > 50)
         return -1;
 
     // verifica se filename não é um path
