@@ -77,6 +77,8 @@ int read2 (FILE2 handle, char *buffer, int size) {
         buffer_offset++;
     }
 
+    free (cluster_buffer);
+
     // atualiza numero de bytes a serem lidos
     size = size - (cluster_size - cluster_offset);
 
@@ -109,9 +111,14 @@ int read2 (FILE2 handle, char *buffer, int size) {
             buffer_offset++;
         }
 
+        free (cluster_buffer);
+
+        // atualiza numero de bytes a serem lidos
+        size = size - cluster_size;
+
     } while (1);
 
     free (cluster_buffer);
     t2fs_open_files[handle].current_pointer = t2fs_open_files[handle].current_pointer + num_read_bytes;
-	return num_read_bytes;
+    return num_read_bytes;
 }
