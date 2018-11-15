@@ -12,6 +12,7 @@ int read2 (FILE2 handle, char *buffer, int size) {
     unsigned int sector_offset;
     char* cluster_buffer;
     unsigned int buffer_offset = 0;
+    unsigned int num_read_bytes;
 
     handle = handle - 1;
 
