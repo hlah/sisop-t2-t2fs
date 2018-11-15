@@ -1,4 +1,5 @@
 #include "t2fs_internal.h"
+#include "apidisk.h"
 
 #include <string.h>
 
