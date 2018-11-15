@@ -1,4 +1,5 @@
 #include "t2fs_internal.h"
+#include "apidisk.h"
 
 int read2 (FILE2 handle, char *buffer, int size) {
     t2fs_init();
