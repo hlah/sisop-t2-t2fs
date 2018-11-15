@@ -13,6 +13,7 @@ int read2 (FILE2 handle, char *buffer, int size) {
     char* cluster_buffer;
     unsigned int buffer_offset = 0;
     unsigned int num_read_bytes;
+    int i;
 
     handle = handle - 1;
 
@@ -55,7 +56,7 @@ int read2 (FILE2 handle, char *buffer, int size) {
         sector_offset = next_cluster % (SECTOR_SIZE / 4);
     }
 
-    // le cluster onde está a posição corrente do arquivo
+    // obtem cluster onde está a posição corrente do arquivo
     cluster_buffer = (char*) t2fs_read_cluster((int) next_cluster);
     if (cluster_buffer == NULL)
         return -1;
@@ -92,7 +93,7 @@ int read2 (FILE2 handle, char *buffer, int size) {
         sector = next_cluster / (SECTOR_SIZE / 4);
         sector_offset = next_cluster % (SECTOR_SIZE / 4);
 
-        // le cluster
+        // obtem cluster
         cluster_buffer = (char*) t2fs_read_cluster((int) next_cluster);
         if (cluster_buffer == NULL)
             return -1;
@@ -121,5 +122,5 @@ int read2 (FILE2 handle, char *buffer, int size) {
 
     free (cluster_buffer);
     t2fs_open_files[handle].current_pointer = t2fs_open_files[handle].current_pointer + num_read_bytes;
-    return num_read_bytes;
+	return num_read_bytes;
 }
