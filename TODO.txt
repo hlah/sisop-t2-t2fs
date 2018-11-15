@@ -1,5 +1,4 @@
 Métodos da interface a implementar:
-- delete2
 - ln2
 - write2
 
@@ -18,3 +17,4 @@ Métodos da interface já implementados:
 - seek2 (NÃO TESTADO)
 - truncate2 (NÃO TESTADO)
 - read2 (NÃO TESTADO)
+- delete2 (NÃO TESTADO)
