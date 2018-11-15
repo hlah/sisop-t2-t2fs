@@ -3,18 +3,18 @@
 #include <string.h>
 
 int create2(char* filename) {
-	t2fs_init();
+    t2fs_init();
 
-	FILE2 handle;
+    FILE2 handle;
     void* cluster_data;
-	unsigned int cluster_registry = 0;
-	unsigned int free_cluster;
-	unsigned int sector_buffer [SECTOR_SIZE / 4];
+    unsigned int cluster_registry = 0;
+    unsigned int free_cluster;
+    unsigned int sector_buffer [SECTOR_SIZE / 4];
     unsigned int sector;
     unsigned int sector_offset;
 
-	// nome inválido
-	if (strlen(filename) > 50)
+    // nome inválido
+    if (strlen(filename) > 50)
         return -1;
 
     // verifica se filename não é um path
@@ -50,6 +50,8 @@ int create2(char* filename) {
 
         // encontra cluster livre e aloca-o
         free_cluster = t2fs_get_free_cluster();
+        if ((int) free_cluster == -1)
+            return -1;
         sector = free_cluster / (SECTOR_SIZE / 4);
         sector_offset = free_cluster % (SECTOR_SIZE / 4);
         if (read_sector(sector + t2fs_superbloco_info.pFATSectorStart, (unsigned char*) sector_buffer) != 0)
@@ -63,7 +65,7 @@ int create2(char* filename) {
         //escreve no disco
         if (write_sector(sector + t2fs_superbloco_info.pFATSectorStart, (unsigned char*) sector_buffer) != 0)
             return -1;
-        free(sector_buffer);
+        free(cluster_data);
 
         return open2(filename);
     }
