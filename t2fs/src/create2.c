@@ -2,32 +2,33 @@
 #include "apidisk.h"
 
 #include <string.h>
+#include <stdio.h>
 
 int create2(char* filename) {
-    t2fs_init();
+	t2fs_init();
 
-    FILE2 handle;
+	FILE2 handle;
     void* cluster_data;
-    unsigned int cluster_registry = 0;
-    unsigned int free_cluster;
-    unsigned int sector_buffer [SECTOR_SIZE / 4];
+	unsigned int cluster_registry = 0;
+	unsigned int free_cluster;
+	unsigned int sector_buffer [SECTOR_SIZE / 4];
     unsigned int sector;
     unsigned int sector_offset;
 
-    // nome inválido
-    if (strlen(filename) > 50)
-        return -1;
+	// nome inválido
+    if (strlen(filename) > 51) 
+        return -1; 
 
     // verifica se filename não é um path
-    if (strchr(filename, '/') != NULL)
-        return -1;
+    if (strchr(filename, '/') != NULL) 
+        return -1; 
 
     // tenta abrir o arquivo, verificando se já existe
     handle = open2(filename);
 
     // diretório de handles cheio
-    if (handle == -2)
-        return -1;
+    if (handle == -2) 
+        return -1; 
 
     // arquivo ainda não existe
     if (handle == -1) {
@@ -51,21 +52,25 @@ int create2(char* filename) {
 
         // encontra cluster livre e aloca-o
         free_cluster = t2fs_get_free_cluster();
-        if ((int) free_cluster == -1)
-            return -1;
+        if ((int) free_cluster == -1) 
+            return -1; 
         sector = free_cluster / (SECTOR_SIZE / 4);
         sector_offset = free_cluster % (SECTOR_SIZE / 4);
-        if (read_sector(sector + t2fs_superbloco_info.pFATSectorStart, (unsigned char*) sector_buffer) != 0)
-            return -1;
+        if (read_sector(sector + t2fs_superbloco_info.pFATSectorStart, (unsigned char*) sector_buffer) != 0) 
+            return -1; 
         sector_buffer[sector_offset] = 0xFFFFFFFF;
 
         // associa cluster livre ao arquivo
         ((struct t2fs_record*)cluster_data+cluster_registry)->clustersFileSize = 1;
         ((struct t2fs_record*)cluster_data+cluster_registry)->firstCluster = free_cluster;
 
-        //escreve no disco
-        if (write_sector(sector + t2fs_superbloco_info.pFATSectorStart, (unsigned char*) sector_buffer) != 0)
-            return -1;
+        // escreve no disco
+        if (write_sector(sector + t2fs_superbloco_info.pFATSectorStart, (unsigned char*) sector_buffer) != 0) 
+            return -1; 
+
+	    if (t2fs_write_cluster(t2fs_cwd_cluster_num, cluster_data) != 0)
+	        return -1;
+
         free(cluster_data);
 
         return open2(filename);
