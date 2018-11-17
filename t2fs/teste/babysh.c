@@ -77,6 +77,7 @@ void help() {
 	printf("ll [caminho] \t lista o coteudo do diretorio 'caminho'.\n");
 	printf("mkdir caminho \t cria diretorio no caminho dado.\n");
 	printf("rmdir caminho \t remove diretorio no caminho dado (deve ser vazio).\n");
+	printf("ln caminho arquivo \t cria link para 'arquivo' em 'caminho'.\n");
 	printf("help \t\t imprime ajuda.\n");
 	printf("exit \t\t sai do babysh.\n");
 }
@@ -90,6 +91,12 @@ void mkdir(char * pathname) {
 void rmdir(char * pathname) {
 	if( rmdir2(pathname) != 0) {
 		printf("Could not delete directory '%s'\n", pathname);
+	}
+}
+
+void ln(char * linkname, char * filename) {
+	if( ln2(linkname, filename) != 0) {
+		printf("Could not create link to '%s', in '%s'\n", filename, linkname );
 	}
 }
 
@@ -134,6 +141,12 @@ int execute_command(char * command) {
 				rmdir( argv[1] );
 			} else {
 				printf("rmdir needs one argument.\n");
+			}
+		} else if( strcmp( argv[0], "ln" ) == 0 ) {
+			if( args > 2 ) {
+				ln( argv[1], argv[2] );
+			} else {
+				printf("ln needs two arguments.\n");
 			}
 		} else {
 			printf("unknown command '%s'\n", argv[0]);
