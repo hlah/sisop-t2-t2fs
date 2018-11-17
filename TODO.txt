@@ -12,12 +12,12 @@ Métodos da interface já implementados:
 - chdir2
 - mkdir2
 - rmdir2
-- close2 (NÃO TESTADO)
-- create2 (NÃO TESTADO)
-- identify2 (NÃO TESTADO)
-- open2 (NÃO TESTADO)
-- seek2 (NÃO TESTADO)
-- truncate2 (NÃO TESTADO)
-- read2 (NÃO TESTADO)
-- delete2 (NÃO TESTADO)
-- write2 (NÃO TESTADO)
+- close2 
+- create2 
+- identify2 
+- open2 
+- seek2 
+- truncate2 
+- read2 
+- delete2 
+- write2 
