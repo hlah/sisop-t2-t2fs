@@ -16,12 +16,12 @@ int seek2 (FILE2 handle, DWORD offset) {
 
     handle = handle - 1;
 
-    // checa se handle √© v√°lido
+    // checa se handle È v·lido
 	if( handle < 0 || handle >= MAXIMUM_OPEN_FILES  ) {
 		return -1;
 	}
 
-	// checa se posi√ß√£o √© usada
+	// checa se posiÁ„o È usada
 	if( t2fs_open_files[handle].file_record == NULL ) {
 		return -1;
 	}
@@ -31,14 +31,14 @@ int seek2 (FILE2 handle, DWORD offset) {
 		return -1;
 	}
 
-    // seta current_pojnter e verifica se √© necess√°rio alocar um novo cluster
+    // seta current_pojnter e verifica se È necess·rio alocar um novo cluster
     if ((int) offset == -1 || offset == t2fs_open_files[handle].file_record->bytesFileSize) {
         t2fs_open_files[handle].current_pointer = t2fs_open_files[handle].file_record->bytesFileSize;
 
-        // aloca novo cluster se necess√°rio
+        // aloca novo cluster se necess·rio
         if ( (t2fs_open_files[handle].current_pointer / cluster_size) == 0 ) {
 
-            // encontra √∫ltimo cluster do arquivo
+            // encontra ˙ltimo cluster do arquivo
             sector = t2fs_open_files[handle].file_record->firstCluster / (SECTOR_SIZE / 4);
             sector_offset = t2fs_open_files[handle].file_record->firstCluster % (SECTOR_SIZE / 4);
             for (i = 0; i < t2fs_open_files[handle].file_record->clustersFileSize; i++) {
@@ -80,16 +80,16 @@ int seek2 (FILE2 handle, DWORD offset) {
 
     /*
 
-    // atualiza tamanho e verifica clusters se necess√°rio
+    // atualiza tamanho e verifica clusters se necess·rio
     if (t2fs_open_files[handle].current_pointer >= t2fs_open_files[handle].file_record->bytesFileSize) {
         t2fs_open_files[handle].file_record->bytesFileSize = t2fs_open_files[handle].current_pointer;
         required_clusters = (t2fs_open_files[handle].current_pointer / cluster_size) + 1;
         num_new_clusters = required_clusters - t2fs_open_files[handle].file_record->clustersFileSize;
 
-        // aloca novos clusters se necess√°rio
+        // aloca novos clusters se necess·rio
         if (num_new_clusters > 0) {
 
-            // encontra √∫ltimo cluster do arquivo
+            // encontra ˙ltimo cluster do arquivo
             sector = t2fs_open_files[handle].file_record->firstCluster / (SECTOR_SIZE / 4);
             sector_offset = t2fs_open_files[handle].file_record->firstCluster % (SECTOR_SIZE / 4);
             for (i = 0; i < t2fs_open_files[handle].file_record->clustersFileSize; i++) {
