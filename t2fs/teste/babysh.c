@@ -78,6 +78,7 @@ void help() {
 	printf("mkdir caminho \t cria diretorio no caminho dado.\n");
 	printf("rmdir caminho \t remove diretorio no caminho dado (deve ser vazio).\n");
 	printf("ln caminho arquivo \t cria link para 'arquivo' em 'caminho'.\n");
+	printf("cat arquivo \t imprime conteudo de 'arquivo'.\n");
 	printf("help \t\t imprime ajuda.\n");
 	printf("exit \t\t sai do babysh.\n");
 }
@@ -97,6 +98,23 @@ void rmdir(char * pathname) {
 void ln(char * linkname, char * filename) {
 	if( ln2(linkname, filename) != 0) {
 		printf("Could not create link to '%s', in '%s'\n", filename, linkname );
+	}
+}
+
+void cat(char * filename) {
+	FILE2 file = open2(filename);
+	char buffer[256];
+	int bytes;
+	if ( file < 0 ) {
+		printf("Could not open file in '%s'\n", filename );
+	} else {
+		do {
+			bytes = read2(file, buffer, 255);
+			buffer[bytes] = '\0';
+			printf("%s", buffer);
+		} while(bytes >= 0);
+		close2(file);
+		printf("\n");
 	}
 }
 
@@ -134,7 +152,7 @@ int execute_command(char * command) {
 			if( args > 1 ) {
 				mkdir( argv[1] );
 			} else {
-				printf("mkdir needs one argument.\n");
+				printf("cat needs one argument.\n");
 			}
 		} else if( strcmp( argv[0], "rmdir" ) == 0 ) {
 			if( args > 1 ) {
@@ -147,6 +165,12 @@ int execute_command(char * command) {
 				ln( argv[1], argv[2] );
 			} else {
 				printf("ln needs two arguments.\n");
+			}
+		} else if( strcmp( argv[0], "cat" ) == 0 ) {
+			if( args > 1 ) {
+				cat( argv[1] );
+			} else {
+				printf("mkdir needs one argument.\n");
 			}
 		} else {
 			printf("unknown command '%s'\n", argv[0]);
