@@ -7,7 +7,7 @@ int read2 (FILE2 handle, char *buffer, int size) {
     unsigned int num_bytes_to_eof;
     unsigned int current_position_cluster;
     unsigned int cluster_offset;
-    unsigned int cluster_size = SECTOR_SIZE * t2fs_superbloco_info.SectorsPerCluster;
+    unsigned int cluster_size = SECTOR_SIZE *   t2fs_superbloco_info.SectorsPerCluster;
     unsigned int next_cluster;
     unsigned int sector;
     unsigned int sector_offset;
@@ -15,6 +15,7 @@ int read2 (FILE2 handle, char *buffer, int size) {
     unsigned int buffer_offset = 0;
     unsigned int num_read_bytes;
     int i;
+    unsigned int sector_buffer [SECTOR_SIZE / 4];
 
     handle = handle - 1;
 
