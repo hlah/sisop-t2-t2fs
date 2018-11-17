@@ -28,6 +28,12 @@ typedef struct {
 	unsigned int current_file;
 } t2fs_directory_data;
 
+typedef struct {
+    DWORD dir_cluster;   /* Cluster do diretório que contém o arquivo */
+    struct t2fs_record *file_record;   /* Ponteiro para registro de diretorio do arquivo */
+    DWORD current_pointer;   /* Posição corrente do arquivo */
+} t2fs_file_data;
+
 
 /////// funções internas da biblioteca ///////////
 // inicializa t2fs, retorna 0 se sucedidio, outro valor se erro
