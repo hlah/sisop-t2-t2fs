@@ -11,7 +11,7 @@ int truncate2 (FILE2 handle) {
     unsigned int cluster_size = SECTOR_SIZE * t2fs_superbloco_info.SectorsPerCluster;
     unsigned int sector;
     unsigned int sector_offset;
-    unsigned char cluster_buffer[cluster_size];
+    // unsigned char cluster_buffer[cluster_size];
     unsigned int i;
     unsigned int removed_clusters = 0;
 

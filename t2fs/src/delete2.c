@@ -8,11 +8,11 @@ int delete2(char* filename) {
 
     FILE2 handle;
     int i;
-	unsigned int sector_buffer [SECTOR_SIZE / 4];
+    unsigned int sector_buffer [SECTOR_SIZE / 4];
     unsigned int sector;
     unsigned int sector_offset;
     void* cluster_data;
-	unsigned int cluster_registry = 0;
+    unsigned int cluster_registry = 0;
     // struct t2fs_record record;
 
     /*
@@ -22,12 +22,12 @@ int delete2(char* filename) {
     if (record.TypeVal != TYPEVAL_REGULAR)
         return -1;
 
-    // verifica se o arquivo j√° est√° aberto
+    // verifica se o arquivo j· est· aberto
     for (i = 0; i < MAXIMUM_OPEN_FILES; i++)
         if (t2fs_open_files[handle].file_record->name == record.name)
             break;
 
-    // se arquivo j√° est√° aberto, √© associado a variavel handle. Se n√£o est√° aberto, √© aberto.
+    // se arquivo j· est· aberto, È associado a variavel handle. Se n„o est· aberto, È aberto.
     if (i < MAXIMUM_OPEN_FILES)
         handle = i + 1;
     else handle = open2(filename);
@@ -36,14 +36,18 @@ int delete2(char* filename) {
 
     // abre arquivo
     handle = open2(filename);
+    // arquivo n„o existe ou n„o È regular
+    if (handle == -1 || handle == -2)
+	return -1;
     handle = handle - 1;
-    if (t2fs_open_files[handle].file_record->TypeVal != TYPEVAL_REGULAR)
-        return -1;
+    // if (t2fs_open_files[handle].file_record->TypeVal != TYPEVAL_REGULAR)
+    //     return -1;
 
-    // verifica se o arquivo j√° est√° aberto com outro handle. Se j√° est√°, arquivo √© fechado
+    // verifica se o arquivo j· est· aberto com outro handle. Se j· est·, arquivo È fechado
     for (i = 0; i < MAXIMUM_OPEN_FILES; i++)
-        if (t2fs_open_files[handle].file_record->name == t2fs_open_files[i].file_record->name && t2fs_open_files[handle].dir_cluster == t2fs_open_files[i].dir_cluster && handle != i)
-            close2(i + 1);
+        if (t2fs_open_files[i].file_record != NULL)
+            if (strcmp (t2fs_open_files[handle].file_record->name, t2fs_open_files[i].file_record->name) == 0 && t2fs_open_files[handle].dir_cluster == t2fs_open_files[i].dir_cluster && handle != i)
+            		close2(i + 1);
 
     // desaloca clusters do arquivo
     seek2(handle + 1, 0);
@@ -58,7 +62,7 @@ int delete2(char* filename) {
     if (write_sector(sector + t2fs_superbloco_info.pFATSectorStart, (unsigned char*) sector_buffer) != 0)
         return -1;
 
-    // procura registro do arquivo no seu diret√≥rio
+    // procura registro do arquivo no seu diretÛrio
 	cluster_data = t2fs_read_cluster( t2fs_open_files[handle].dir_cluster );
 	while( strcmp(((struct t2fs_record*)cluster_data+cluster_registry)->name, t2fs_open_files[handle].file_record->name) != 0) {
 		cluster_registry++;
@@ -69,6 +73,6 @@ int delete2(char* filename) {
 	if (t2fs_write_cluster(t2fs_open_files[handle].dir_cluster, cluster_data) != 0)
         return -1;
     free(cluster_data);
-
+    close2(handle + 1);
 	return 0;
 }
