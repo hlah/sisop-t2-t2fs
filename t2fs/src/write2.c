@@ -1,22 +1,21 @@
 #include "t2fs_internal.h"
 #include "apidisk.h"
 
-
 int write2 (FILE2 handle, char *buffer, int size) {
-	t2fs_init();
+    t2fs_init();
 
     unsigned int num_written_bytes;
     unsigned int final_current_pointer;
     unsigned int required_clusters;
-	unsigned int num_new_clusters;
+    unsigned int num_new_clusters;
     unsigned int current_position_cluster;
     unsigned int cluster_offset;
-	unsigned int cluster_size = SECTOR_SIZE * t2fs_superbloco_info.SectorsPerCluster;
-	unsigned int sector_buffer [SECTOR_SIZE / 4];
+    unsigned int cluster_size = SECTOR_SIZE * t2fs_superbloco_info.SectorsPerCluster;
+    unsigned int sector_buffer [SECTOR_SIZE / 4];
     unsigned int sector;
     unsigned int sector_offset;
     unsigned int next_cluster;
-	unsigned int i;
+    unsigned int i;
     unsigned int new_cluster;
     char* cluster_buffer;
     unsigned int buffer_offset = 0;
@@ -110,7 +109,7 @@ int write2 (FILE2 handle, char *buffer, int size) {
 	if ( (cluster_offset + size) <= cluster_size ) {
         for (i = cluster_offset; i < (cluster_offset + size); i++) {
             // buffer[buffer_offset] = cluster_buffer[i];
-            cluster_buffer[i] = buffer[buffer_offset]
+            cluster_buffer[i] = buffer[buffer_offset];
             buffer_offset++;
         }
         if (t2fs_write_cluster((int) next_cluster, cluster_buffer) != 0)
