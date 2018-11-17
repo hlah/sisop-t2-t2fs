@@ -11,12 +11,17 @@ int main() {
     char buffer4[20];
     char buffer5[6];
     char *buffer6;
-    char buffer7[200];
+    char buffer7[205];
     int i;
 
     buffer6 = malloc (2200);
+
+    for (i = 0; i < 199; i++)
+	buffer6[i] = 't';
+
+    buffer [199] = '\0';
 	
-    for (i = 0; i < 2199; i++)
+    for (i = 200; i < 2199; i++)
 	buffer6[i] = 't';
 	
     buffer [2199] = '\0';
@@ -41,18 +46,18 @@ int main() {
     printf("%s\n", buffer3);
     close2(handle);
     handle = open2("helloworld");
-    read2(handle, buffer4, 8);
+    read2(handle, buffer4, 11);
     printf("%s\n", buffer4);
     handle = create2("helloworld");
-    seek (handle, -1);
-    write2(handle, "hello", 6)
-    seek (handle, 0);
+    seek2 (handle, -1);
+    write2(handle, "hello", 6);
+    seek2 (handle, 0);
     read2(handle, buffer5, 20);
     printf("%s\n", buffer5);
-    seek (handle, 6);
+    seek2 (handle, 5);
     write2(handle, buffer6, 2200);
-    seek (handle, 0);
-    read2(handle, buffer7, 200);
+    seek2 (handle, 0);
+    read2(handle, buffer7, 205);
     printf("%s\n", buffer7);
     delete2("helloworld");
     handle = open2("helloworld");
