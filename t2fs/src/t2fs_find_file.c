@@ -36,9 +36,13 @@ struct t2fs_record t2fs_find_file(int cluster, const char* path) {
 		path++;	// remove '/' se existe
 	}
 
-
 	// lê cluster
 	void* cluster_data = t2fs_read_cluster( cluster );
+	
+	// se base fazia, retorna '..'
+	if( base_name[0] == '\0' ) {
+		strcpy(base_name, "..");
+	}
 
 	// procura pela base
 	int cluster_registry = 0;
@@ -60,7 +64,6 @@ struct t2fs_record t2fs_find_file(int cluster, const char* path) {
 
 	// se é link, procura valor
 	if( record.TypeVal == TYPEVAL_LINK ) {
-		// TODO: obtém cluster do link, le path e obtém registro a partir dele
 		cluster_data = t2fs_read_cluster( record.firstCluster );
 		if( cluster_data == NULL ) {
 			return registro_invalido;
@@ -70,10 +73,9 @@ struct t2fs_record t2fs_find_file(int cluster, const char* path) {
 
 	// se path vazio, retorna registro
 	if( path[0] == '\0' ) {
-		// TODO: suporte a links para arquivos
 		return record;
 	}
-	// checka se é diretório TODO: suporte a links para diretorios
+	// checka se é diretório 
 	if( record.TypeVal != TYPEVAL_DIRETORIO ) {
 		return registro_invalido;
 	}

@@ -3,6 +3,8 @@
 #include <assert.h>
 #include <string.h>
 
+#include <stdio.h>
+
 
 int chdir2 (char *pathname) {
 	t2fs_init();

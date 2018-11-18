@@ -1,8 +1,6 @@
 Métodos da interface a implementar:
-- ln2
 
 BUGS:
-- endereço absoluto '/' não é reconhecido
 
 Métodos da interface já implementados:
 - readdir2
@@ -21,3 +19,8 @@ Métodos da interface já implementados:
 - read2 
 - delete2 
 - write2 
+- ln2
+
+
+BUGS corrijidos:
+- endereço absoluto '/' não é reconhecido
